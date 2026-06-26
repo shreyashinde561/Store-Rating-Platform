@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 export default function AdminDashboard() {
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
     totalUsers: 0,
     totalStores: 0,
@@ -17,7 +20,6 @@ export default function AdminDashboard() {
   const fetchDashboard = async () => {
     try {
       const res = await api.get("/admin/dashboard");
-
       setData(res.data);
     } catch (err) {
       console.log(err);
@@ -29,7 +31,7 @@ export default function AdminDashboard() {
 
   const logout = () => {
     localStorage.clear();
-    window.location.href = "/";
+    navigate("/login");
   };
 
   if (loading) {
@@ -108,15 +110,26 @@ export default function AdminDashboard() {
         </h2>
 
         <div style={styles.actions}>
-          <button style={styles.actionButton}>
+          <button
+            style={styles.actionButton}
+            onClick={() => navigate("/users")}
+          >
             Add User
           </button>
 
-          <button style={styles.actionButton}>
+          <button
+            style={styles.actionButton}
+            onClick={() =>
+              navigate("/store-management")
+            }
+          >
             Add Store
           </button>
 
-          <button style={styles.actionButton}>
+          <button
+            style={styles.actionButton}
+            onClick={() => navigate("/users")}
+          >
             View Reports
           </button>
         </div>
@@ -172,7 +185,8 @@ const styles = {
 
   cardContainer: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gridTemplateColumns:
+      "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "25px",
     marginBottom: "40px",
   },
@@ -181,7 +195,8 @@ const styles = {
     background: "white",
     padding: "30px",
     borderRadius: "16px",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+    boxShadow:
+      "0 4px 12px rgba(0,0,0,0.08)",
     textAlign: "center",
   },
 
@@ -206,7 +221,8 @@ const styles = {
     background: "white",
     padding: "30px",
     borderRadius: "16px",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+    boxShadow:
+      "0 4px 12px rgba(0,0,0,0.08)",
   },
 
   sectionTitle: {

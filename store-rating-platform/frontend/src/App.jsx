@@ -8,7 +8,10 @@ import Stores from "./pages/Stores";
 import AdminDashboard from "./pages/AdminDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import OwnerDashboard from "./pages/OwnerDashboard";
+
 import Users from "./pages/Users";
+import StoreManagement from "./pages/StoreManagement";
+import ChangePassword from "./pages/ChangePassword";
 
 export default function App() {
   return (
@@ -25,9 +28,20 @@ export default function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/user" element={<UserDashboard />} />
         <Route path="/owner" element={<OwnerDashboard />} />
+
+        {/* Admin Pages */}
         <Route path="/users" element={<Users />} />
+        <Route
+          path="/store-management"
+          element={<StoreManagement />}
+        />
+
+        {/* Change Password */}
+        <Route
+          path="/change-password"
+          element={<ChangePassword />}
+        />
       </Routes>
     </BrowserRouter>
   );
 }
-

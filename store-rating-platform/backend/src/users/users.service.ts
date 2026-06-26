@@ -1,6 +1,12 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import * as bcrypt from 'bcrypt';
 
 import { User } from './user.entity';
@@ -13,35 +19,50 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  // CREATE USER (SECURE - NO PASSWORD RETURN)
+  // CREATE USER
   async create(createUserDto: CreateUserDto) {
-    const existingUser = await this.userRepository.findOne({
-      where: { email: createUserDto.email },
-    });
+    const existingUser =
+      await this.userRepository.findOne({
+        where: {
+          email: createUserDto.email,
+        },
+      });
 
     if (existingUser) {
-      throw new ConflictException('Email already exists');
+      throw new ConflictException(
+        'Email already exists',
+      );
     }
 
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    const hashedPassword =
+      await bcrypt.hash(
+        createUserDto.password,
+        10,
+      );
 
-    const user = this.userRepository.create({
-      ...createUserDto,
-      password: hashedPassword,
-    });
+    const user =
+      this.userRepository.create({
+        ...createUserDto,
+        password: hashedPassword,
+      });
 
-    const savedUser = await this.userRepository.save(user);
+    const savedUser =
+      await this.userRepository.save(user);
 
-    // REMOVE PASSWORD BEFORE RETURN
-    const { password, ...result } = savedUser;
+    const { password, ...result } =
+      savedUser;
+
     return result;
   }
 
-  // GET ALL USERS (SECURE - NO PASSWORD)
+  // GET ALL USERS
   async findAll() {
-    const users = await this.userRepository.find();
+    const users =
+      await this.userRepository.find();
 
-    return users.map(({ password, ...user }) => user);
+    return users.map(
+      ({ password, ...user }) => user,
+    );
   }
 
   // LOGIN SUPPORT
@@ -49,5 +70,32 @@ export class UsersService {
     return this.userRepository.findOne({
       where: { email },
     });
+  }
+
+  // CHANGE PASSWORD
+  async updatePassword(
+    id: number,
+    password: string,
+  ) {
+    const user =
+      await this.userRepository.findOne({
+        where: { id },
+      });
+
+    if (!user) {
+      throw new NotFoundException(
+        'User not found',
+      );
+    }
+
+    user.password =
+      await bcrypt.hash(password, 10);
+
+    await this.userRepository.save(user);
+
+    return {
+      message:
+        'Password updated successfully',
+    };
   }
 }

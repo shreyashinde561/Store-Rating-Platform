@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -71,7 +73,7 @@ export default function Register() {
 
       alert("Account created successfully!");
 
-      window.location.href = "/login";
+      navigate("/login");
     } catch (err) {
       console.log(err);
 
@@ -164,13 +166,11 @@ export default function Register() {
         </button>
 
         <button
-          style={styles.loginButton}
-          onClick={() =>
-            (window.location.href = "/")
-          }
-        >
-          Back to Login
-        </button>
+  style={styles.loginButton}
+  onClick={() => navigate("/login")}
+>
+  Back to Login
+</button>
 
         <p style={styles.footer}>
           Store Rating Platform © 2026
