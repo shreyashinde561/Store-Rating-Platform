@@ -1,16 +1,52 @@
-# React + Vite
+# 🏪 Store Rating Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack role-based web application where users can rate stores (1–5 stars).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Tech Stack
+- Frontend: React + Vite  
+- Backend: NestJS  
+- Database: PostgreSQL  
+- API Testing: Postman  
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 👥 Roles
 
-## Expanding the ESLint configuration
+### Admin
+- Manage users & stores  
+- View dashboard analytics  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### User
+- Register/Login  
+- View stores  
+- Submit & update ratings  
+
+### Store Owner
+- View ratings  
+- See average rating  
+
+---
+
+## 🔥 Features
+- JWT Authentication  
+- Role-based access control  
+- Store rating system (1–5)  
+- Search & filter  
+- Dashboard analytics  
+- REST APIs  
+
+---
+
+## 🧪 Testing
+- Manual Testing  
+- API Testing (Postman)  
+- DB validation (SQL)  
+
+---
+
+## ⚙️ Setup
+```bash
+npm install
+npm run dev
